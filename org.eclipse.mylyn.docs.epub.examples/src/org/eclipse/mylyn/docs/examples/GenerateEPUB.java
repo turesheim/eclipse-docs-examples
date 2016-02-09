@@ -42,7 +42,7 @@ public class GenerateEPUB {
 			parser.setBuilder(builder);
 			parser.parse(fr, true);
 			
-			// convert the inline equations into MathML
+			// convert any inline equations into MathML
 			String html = Utilities.readFile(HTML_FILE, Charset.forName("UTF-8"));
 			StringBuffer sb = new StringBuffer();
 	        Matcher m = INLINE_EQUATION.matcher(html);
@@ -58,6 +58,7 @@ public class GenerateEPUB {
 			
 			// include referenced resources is default false
 			pub.setIncludeReferencedResources(true);
+			pub.addTitle("EclipseCon Demo");
 			pub.addSubject("EclipseCon Demo");
 			
 			// generate table of contents is default true
