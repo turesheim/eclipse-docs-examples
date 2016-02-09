@@ -17,7 +17,7 @@ Bundle-ClassPath: lib/org.apache.tika.core_1.3.0.v201304160510.jar,
  lib/fop.jar,
  lib/snuggletex-core-1.2.2.jar,
  lib/xmlgraphics-commons-2.0.1.jar
-Require-Bundle: org.eclipse.swt;bundle-version="3.104.1",
+Require-Bundle: org.eclipse.swt;bundle-version="3.104.0",
  org.eclipse.swtbot.eclipse.core;bundle-version="2.3.0",
  org.eclipse.swtbot.eclipse.finder;bundle-version="2.3.0",
  org.eclipse.swtbot.eclipse.ui;bundle-version="2.3.0",
