@@ -32,10 +32,12 @@ public class GenerateEPUB {
 	public static void main(String[] args) {			
 
 		try (
-				FileWriter fw = new FileWriter(HTML_FILE); 
-				FileReader fr = new FileReader("loremipsum.md")){
+				// read MarkDown
+				FileReader fr = new FileReader("loremipsum.md");
+				// and output HTML
+				FileWriter fw = new FileWriter(HTML_FILE)){
 			
-			// generate a HTML file from the MarkDown
+			// configure the MarkDown parser
 			MarkupParser parser = new MarkupParser();
 			parser.setMarkupLanguage(new MarkdownLanguage());
 			HtmlDocumentBuilder builder = new HtmlDocumentBuilder(fw);
@@ -46,7 +48,9 @@ public class GenerateEPUB {
 			String html = Utilities.readFile(HTML_FILE, Charset.forName("UTF-8"));
 			StringBuffer sb = new StringBuffer();
 	        Matcher m = INLINE_EQUATION.matcher(html);
+	        // for each equation
 	        while (m.find()){
+	        	// replace the LaTeX code with MathML
 				m.appendReplacement(sb, laTeX2MathMl(m.group()));
 	        }        
 	        m.appendTail(sb);
@@ -78,6 +82,17 @@ public class GenerateEPUB {
 	}
 	
 	private static String laTeX2MathMl(String latex) throws IOException {
+		
+		// this is possibly a reference to a equation file
+		if (latex.contains(".eqn")){
+			String filename = latex.replaceAll("\\$","");
+			File f = new File(filename);
+			// if so load the contents of the file
+			if (f.exists()){
+				latex = "$$"+new String(Files.readAllBytes(f.toPath()))+"$$";
+			}
+		}
+		
 		// remove line breaks from within math expressions
 		latex = latex.replace("<br></br>", "");
 		latex = latex.replace("<br />", "");
