@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2015, 2016 Torkild U. Resheim
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Torkild U. Resheim - initial implementation
+ *******************************************************************************/
 package org.eclipse.mylyn.docs.examples;
 
 import java.io.File;
@@ -48,6 +58,7 @@ public class GenerateEPUB {
 			String html = Utilities.readFile(HTML_FILE, Charset.forName("UTF-8"));
 			StringBuffer sb = new StringBuffer();
 	        Matcher m = INLINE_EQUATION.matcher(html);
+	        
 	        // for each equation
 	        while (m.find()){
 	        	// replace the LaTeX code with MathML
@@ -87,7 +98,7 @@ public class GenerateEPUB {
 		if (latex.contains(".eqn")){
 			String filename = latex.replaceAll("\\$","");
 			File f = new File(filename);
-			// if so load the contents of the file
+			// if so load the contents of the file into the equation variable
 			if (f.exists()){
 				latex = "$$"+new String(Files.readAllBytes(f.toPath()))+"$$";
 			}

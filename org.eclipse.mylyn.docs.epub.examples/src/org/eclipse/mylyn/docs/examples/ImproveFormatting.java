@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2015, 2016 Torkild U. Resheim
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Torkild U. Resheim - initial implementation
+ *******************************************************************************/
 package org.eclipse.mylyn.docs.examples;
 
 import java.io.File;
@@ -117,6 +127,5 @@ public class ImproveFormatting {
 		fw.write(parse.outerHtml());
 		fw.flush();
 		fw.close();
-
 	}
 }
