@@ -86,6 +86,7 @@ public class ImproveFormatting {
 
 			// add the Ubuntu monospace font
 			Publication publication = epub.getOPSPublications().get(0);
+			publication.addSubject("Demo");			
 			publication.addItem(new File("assets/UbuntuMono-B.ttf"));
 			publication.addItem(new File("assets/UbuntuMono-BI.ttf"));
 			publication.addItem(new File("assets/UbuntuMono-R.ttf"));

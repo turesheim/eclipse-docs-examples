@@ -15,9 +15,15 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.OutputStream;
+import java.io.StringWriter;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
@@ -26,6 +32,9 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.batik.dom.GenericDOMImplementation;
+import org.apache.batik.svggen.SVGGeneratorContext;
+import org.apache.batik.svggen.SVGGraphics2D;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
 import org.eclipse.mylyn.wikitext.core.parser.MarkupParser;
@@ -34,9 +43,21 @@ import org.eclipse.mylyn.wikitext.core.parser.builder.XslfoDocumentBuilder.Confi
 import org.eclipse.mylyn.wikitext.core.parser.outline.OutlineItem;
 import org.eclipse.mylyn.wikitext.core.parser.outline.OutlineParser;
 import org.eclipse.mylyn.wikitext.markdown.core.MarkdownLanguage;
+import org.scilab.forge.jlatexmath.DefaultTeXFont;
+import org.scilab.forge.jlatexmath.TeXConstants;
+import org.scilab.forge.jlatexmath.TeXFormula;
+import org.scilab.forge.jlatexmath.TeXIcon;
+import org.scilab.forge.jlatexmath.cyrillic.CyrillicRegistration;
+import org.scilab.forge.jlatexmath.greek.GreekRegistration;
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.Document;
 
 public class GeneratePDF {
 	
+	private static final File XSLFO_FILE = new File("loremipsum.fo");
+	
+	private static final Pattern INLINE_EQUATION = Pattern.compile("\\$\\$?[^$]*\\$\\$?");
+
 	public static void main(String[] args) {			
 
 		try (
@@ -51,12 +72,12 @@ public class GeneratePDF {
 			
 			// create a cover page
 			Configuration c = new Configuration();
-			c.setTitle("Lorem markdownum");
+			c.setTitle("Lorem impsum");
 			c.setVersion("Version 1.0");
 			c.setAuthor("Nomen Nescio");
 			c.setDate(LocalDate.now().toString());
 			// and a footer
-			c.setCopyright("Copyright 2015, Jasper Van der Jeugt");
+			c.setCopyright("Copyright 2015-2016, Nomen Nescio");
 			
 			builder.setConfiguration(c);
 
@@ -68,6 +89,19 @@ public class GeneratePDF {
 			// build the XSL:FO file 
 			parser.setBuilder(builder);
 			parser.parse(fr, true);
+			
+			// convert any inline equations in the HTML into MathML
+			String html = Utilities.readFile(XSLFO_FILE, Charset.forName("UTF-8"));
+			StringBuffer sb = new StringBuffer();
+	        Matcher m = INLINE_EQUATION.matcher(html);
+	        
+	        // for each equation
+	        while (m.find()){
+	        	// replace the LaTeX code with MathML
+				m.appendReplacement(sb, laTeX2Svg(m.group()));
+	        }        
+	        m.appendTail(sb);
+	        Files.write(XSLFO_FILE.toPath(), sb.toString().getBytes(), StandardOpenOption.WRITE);
 			
 			// create a new Fop using the given configuration
 			FopFactory fopFactory = FopFactory.newInstance(new File("fop.xconf"));
@@ -86,6 +120,48 @@ public class GeneratePDF {
 			e.printStackTrace();
 		}
 		
+	}
+
+	private static String laTeX2Svg(String latex) throws IOException {
+
+		// this is possibly a reference to a equation file
+		if (latex.contains(".eqn")){
+			String filename = latex.replaceAll("\\$","");
+			File f = new File(filename);
+			// if so load the contents of the file into the equation variable
+			if (f.exists()){
+				latex = "$$"+new String(Files.readAllBytes(f.toPath()))+"$$";
+			}
+		}
+
+		DefaultTeXFont.registerAlphabet(new CyrillicRegistration());
+		DefaultTeXFont.registerAlphabet(new GreekRegistration());
+
+		DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();
+		String svgNS = "http://www.w3.org/2000/svg";
+		Document document = domImpl.createDocument(svgNS, "svg", null);
+		SVGGeneratorContext ctx = SVGGeneratorContext.createDefault(document);
+
+		SVGGraphics2D g2 = new SVGGraphics2D(ctx, true);
+		TeXFormula formula = new TeXFormula(latex);
+		
+		TeXIcon icon = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, 15);
+		icon.paintIcon(null, g2, 0, 0);
+		
+		StringWriter svgWriter = new StringWriter();
+		g2.stream(svgWriter,true);
+		
+		// kludge to remove xml and doctype declaration
+		String svg = svgWriter.toString();
+		svg = svg.substring(svg.indexOf('\n')+1);
+		svg = svg.substring(svg.indexOf('\n')+1);
+		svg = svg.substring(svg.indexOf('\n')+1);
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("<instream-foreign-object>");
+		sb.append(svg);
+		sb.append("</instream-foreign-object>");
+		return sb.toString();
 	}
 	
 }

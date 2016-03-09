@@ -47,14 +47,14 @@ public class GenerateEPUB {
 				// and output HTML
 				FileWriter fw = new FileWriter(HTML_FILE)){
 			
-			// configure the MarkDown parser
+			// generate HTML from markdown
 			MarkupParser parser = new MarkupParser();
 			parser.setMarkupLanguage(new MarkdownLanguage());
 			HtmlDocumentBuilder builder = new HtmlDocumentBuilder(fw);
 			parser.setBuilder(builder);
 			parser.parse(fr, true);
 			
-			// convert any inline equations into MathML
+			// convert any inline equations in the HTML into MathML
 			String html = Utilities.readFile(HTML_FILE, Charset.forName("UTF-8"));
 			StringBuffer sb = new StringBuffer();
 	        Matcher m = INLINE_EQUATION.matcher(html);
@@ -108,7 +108,8 @@ public class GenerateEPUB {
 		latex = latex.replace("<br></br>", "");
 		latex = latex.replace("<br />", "");
 		latex = latex.replace("<br/>", "");
-		// back-convert html entities to utf-8
+		
+		// convert html entities to utf-8
 		String utf8latex = StringEscapeUtils.unescapeHtml(latex);
 
 		SnuggleEngine engine = new SnuggleEngine();
