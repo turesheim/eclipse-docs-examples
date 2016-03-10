@@ -1,17 +1,12 @@
 autoscale: true
-footer: Copyright © 2015 Torkild U. Resheim, Itema AS
+footer: Copyright © 2015-2016 Torkild U. Resheim, Itema AS
 
-
-^ Scott Meyer blog tirade mot forlag
-^ Husk å få frem fokus på API
-^ Få frem _punchline_. Hva med ligningene?
-
-![original](background.jpg)
+![original](images/background.jpg)
 
 # **Mylyn Docs**
 ## …and how it can be a *powerful tool*
 
-![inline 100% left](eclipsecon.png)
+![inline 100% left](images/eclipsecon.png)
 
 ---
 # About me
@@ -21,11 +16,11 @@ footer: Copyright © 2015 Torkild U. Resheim, Itema AS
 * Committer at Mylyn Docs, Mylyn Builds and Orbit
 * Helps out at the Eclipse Science Working Group
 
-torkildr on  Twitter
+torkildr on Twitter
 tur@itema.no
 http://www.itema.no
 
-![inline right](logo.png)
+![inline right](images/logo.png)
 
 ---
 # About the project
@@ -36,7 +31,28 @@ http://www.itema.no
 * 18 contributors and committers
 * 137k lines of code
 
-![left 110%](why-wiki.jpg)
+![left 110%](images/why-wiki.jpg)
+
+
+---
+# Why use Mylyn Docs?
+
+> "First of all thank you HUGELY for WikiText. I've used it to create documentation to go along with the software I'm sending to the ISS for astronauts to use. Very cool."
+-- Tamar Cohen, NASA, June 2012[^1]
+
+[^1]: https://www.eclipse.org/forums/index.php/t/366592/
+
+---
+# Mylyn docs restructuring
+
+Mylyn Docs will be split into several new projects under the "Lifecycle Tools"[^2] TLP:
+
+* Wikitext 
+* Imsar (𒁾)
+* VEX
+* Intent
+
+[^2]: https://wiki.eclipse.org/Mylyn/Restructuring/2015
 
 ---
 # Components
@@ -46,33 +62,26 @@ http://www.itema.no
 	* ANT and Maven tasks
 	* Extensible Java API
 * EPUB
-	* Ant task (Maven in the works)
+	* Ant task
 	* Wizard for WikiText to EPUB
 	* Java API
 
-![right 50%](editor.png)
+![right 50%](images/editor.png)
 
 ---
 # Supported dialects
 
+- Asciidoc
+- Commonmark
 - Confluence
+- Markdown
 - Mediawiki
 - Textile
-- Commonmark
-- Markdown
 - TracWiki
 - TWiki
 
-![right 50%](preview.png)
+![right 50%](images/preview.png)
 
----
-# Why use Mylyn Docs?
-
-> "First of all thank you HUGELY for WikiText. I've used it to create documentation to go along with the software I'm sending to the ISS for astronauts to use. Very cool."
--- _Tamar Cohen, NASA, June 2012_
-
-^ The Ant scripts are useful but the API's are much more powerful. I will demonstrate how to use the API's to do thinks that are very hard or even impossible using the scripts.
- 
 ---
 # Using Mylyn Docs
 ## The Java API
@@ -80,13 +89,12 @@ http://www.itema.no
 ---
 # As a user I want to read my documentation in PDF and EPUB
 
+* Write equations in LaTeX from within Eclipse
+* Insert these equations into my MarkDown document
 * Use Mylyn Docs to generate all formats
 	* Convert from MarkDown to HTML and assemble EPUB
-		* And I want my equations to look good!
 	* Convert from MarkDown to XSL:FO and generate PDF
-		* Add a cover page
-		* Generate table of contents
-
+	
 ---
 # As a developer I want to read all my coding books with pretty formatting
 
@@ -95,17 +103,16 @@ http://www.itema.no
 	* Add an improved CSS file
 	* Modify the source code listings
 	* Add a new page
-	* Copy modified book to iPad and smile! 😀
+	* Copy modified book to reading system and smile! 😀
 
 ---
 # Summary
 
-![inline fit](summary.png)
+![inline fit](images/summary.png)
 
 ---
-
-![ ](evaluate-16x9.png)
+# Slides and code:
+# https://github.com/turesheim/mylyn-docs-examples
 
 ---
-
-## See: https://github.com/turesheim/mylyn-docs-examples
+![ ](images/evaluate-16x9.png)
