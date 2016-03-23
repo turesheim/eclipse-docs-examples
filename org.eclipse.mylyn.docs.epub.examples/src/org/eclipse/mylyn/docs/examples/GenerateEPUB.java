@@ -41,8 +41,7 @@ public class GenerateEPUB {
 	
 	public static void main(String[] args) {			
 
-		try (
-				// read MarkDown
+		try (	// read MarkDown
 				FileReader fr = new FileReader("loremipsum.md");
 				// and output HTML
 				FileWriter fw = new FileWriter(HTML_FILE)){
@@ -53,36 +52,36 @@ public class GenerateEPUB {
 			HtmlDocumentBuilder builder = new HtmlDocumentBuilder(fw);
 			parser.setBuilder(builder);
 			parser.parse(fr, true);
-			
+
 			// convert any inline equations in the HTML into MathML
 			String html = Utilities.readFile(HTML_FILE, Charset.forName("UTF-8"));
 			StringBuffer sb = new StringBuffer();
-	        Matcher m = INLINE_EQUATION.matcher(html);
-	        
-	        // for each equation
-	        while (m.find()){
-	        	// replace the LaTeX code with MathML
+			Matcher m = INLINE_EQUATION.matcher(html);
+
+			// for each equation
+			while (m.find()) {
+				// replace the LaTeX code with MathML
 				m.appendReplacement(sb, laTeX2MathMl(m.group()));
-	        }        
-	        m.appendTail(sb);
-	        Files.write(HTML_FILE.toPath(), sb.toString().getBytes(), StandardOpenOption.WRITE);
-						
+			}
+			m.appendTail(sb);
+			Files.write(HTML_FILE.toPath(), sb.toString().getBytes(), StandardOpenOption.WRITE);
+
 			// instantiate a new EPUB
 			EPUB epub = new EPUB();
 			Publication pub = Publication.getVersion2Instance();
-			
+
 			// include referenced resources is default false
 			pub.setIncludeReferencedResources(true);
 			pub.addTitle("EclipseCon Demo");
 			pub.addSubject("EclipseCon Demo");
-			
+
 			// generate table of contents is default true
 			pub.setGenerateToc(true);
 			epub.add(pub);
-			
+
 			// add one chapter
 			pub.addItem(HTML_FILE);
-			
+
 			// create the EPUB
 			epub.pack(new File("loremipsum.epub"));
 			
@@ -95,20 +94,20 @@ public class GenerateEPUB {
 	private static String laTeX2MathMl(String latex) throws IOException {
 		
 		// this is possibly a reference to a equation file
-		if (latex.contains(".eqn")){
-			String filename = latex.replaceAll("\\$","");
+		if (latex.contains(".eqn")) {
+			String filename = latex.replaceAll("\\$", "");
 			File f = new File(filename);
 			// if so load the contents of the file into the equation variable
-			if (f.exists()){
-				latex = "$$"+new String(Files.readAllBytes(f.toPath()))+"$$";
+			if (f.exists()) {
+				latex = "$$" + new String(Files.readAllBytes(f.toPath())) + "$$";
 			}
 		}
-		
+
 		// remove line breaks from within math expressions
 		latex = latex.replace("<br></br>", "");
 		latex = latex.replace("<br />", "");
 		latex = latex.replace("<br/>", "");
-		
+
 		// convert html entities to utf-8
 		String utf8latex = StringEscapeUtils.unescapeHtml(latex);
 
@@ -123,6 +122,7 @@ public class GenerateEPUB {
 		options.setEncoding("UTF-8");
 		options.setAddingMathSourceAnnotations(false);
 		options.setUsingNamedEntities(true);
+		
 		return session.buildXMLString(options);
 	}	
 	
