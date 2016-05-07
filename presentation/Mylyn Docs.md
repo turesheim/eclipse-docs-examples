@@ -87,16 +87,26 @@ Mylyn Docs will be split into several new projects under the "Lifecycle Tools"[^
 ## The Java API
 
 ---
-# As a user I want to read my documentation in PDF and EPUB
+# 1. As an author I want to publish my documentation in PDF and EPUB
 
 * Write equations in LaTeX from within Eclipse
 * Insert these equations into my MarkDown document
 * Use Mylyn Docs to generate all formats
 	* Convert from MarkDown to HTML and assemble EPUB
 	* Convert from MarkDown to XSL:FO and generate PDF
-	
+
+---	
+# 2. As a release engineer I want to embed test results into my release notes
+
+Some of my tests can tell the user what combination of features will work together and I don't want to maintain that table manually.
+
+* Run a set of JUnit tests and produce an XML file with results
+* Transform the results into a MarkDown file
+* Use Mylyn Docs to generate release notes in various formats
+
+
 ---
-# As a developer I want to read all my coding books with pretty formatting
+# 3. As a developer I want to read all my coding books with pretty formatting
 
 * The coding book I just bought has bad formatting and I find it hard to read.
 * Use Mylyn Docs tools to unpack the book
