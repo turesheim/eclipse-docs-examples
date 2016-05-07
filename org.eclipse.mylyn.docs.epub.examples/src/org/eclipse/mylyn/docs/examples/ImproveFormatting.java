@@ -14,7 +14,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
 
@@ -101,7 +101,7 @@ public class ImproveFormatting {
 	}
 
 	private static void improveCodeFormatting(File in) throws IOException {
-		String contents = Utilities.readFile(in, Charset.forName("UTF-8"));
+		String contents = new String(Files.readAllBytes(in.toPath())); 
 		
 		// parse the file contents as XML and put it into a DOM
 		Document parse = Jsoup.parse(contents, "UTF-8", Parser.xmlParser());
@@ -111,14 +111,17 @@ public class ImproveFormatting {
 		for (Element element : select) {
 			String text = element.html();
 		
-			// try to avoid xml and other code already formatted, just to make it easier
+			// try to avoid xml and other code already formatted - this 
+			// implementation is naïve.
 			if (!text.contains("<plugin>") && !text.contains("<span")) {
+				// format all keywords by adding the "keyword" class
 				String code = KEYWORDS
 						.stream()
 						.reduce(text,
 						(str, keyword) -> str.replaceAll(
 								keyword+"(\\s|\\(|\\{|\\))", 
 								"<code class=\"keyword\">" + keyword + "</code>$1"));
+				// change the HTML code
 				element.html(code);
 			}
 		}

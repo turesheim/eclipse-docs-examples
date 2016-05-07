@@ -12,10 +12,10 @@ package org.eclipse.mylyn.docs.examples;
 
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.io.Writer;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,9 +34,7 @@ import uk.ac.ed.ph.snuggletex.SnuggleSession;
 import uk.ac.ed.ph.snuggletex.XMLStringOutputOptions;
 
 public class GenerateEPUB {
-	
-	private static final File HTML_FILE = new File("loremipsum.html");
-	
+		
 	private static final Pattern INLINE_EQUATION = Pattern.compile("\\$\\$?[^$]*\\$\\$?");
 	
 	public static void main(String[] args) {			
@@ -44,7 +42,7 @@ public class GenerateEPUB {
 		try (	// read MarkDown
 				FileReader fr = new FileReader("loremipsum.md");
 				// and output HTML
-				FileWriter fw = new FileWriter(HTML_FILE)){
+				Writer fw = Files.newBufferedWriter(Paths.get("loremipsum.html"), StandardOpenOption.CREATE)){
 			
 			// generate HTML from markdown
 			MarkupParser parser = new MarkupParser();
@@ -54,7 +52,7 @@ public class GenerateEPUB {
 			parser.parse(fr, true);
 
 			// convert any inline equations in the HTML into MathML
-			String html = Utilities.readFile(HTML_FILE, Charset.forName("UTF-8"));
+			String html  = new String(Files.readAllBytes(Paths.get("loremipsum.html")));
 			StringBuffer sb = new StringBuffer();
 			Matcher m = INLINE_EQUATION.matcher(html);
 
@@ -64,7 +62,7 @@ public class GenerateEPUB {
 				m.appendReplacement(sb, laTeX2MathMl(m.group()));
 			}
 			m.appendTail(sb);
-			Files.write(HTML_FILE.toPath(), sb.toString().getBytes(), StandardOpenOption.WRITE);
+			Files.write(Paths.get("loremipsum.html"), sb.toString().getBytes(), StandardOpenOption.WRITE);
 
 			// instantiate a new EPUB
 			EPUB epub = new EPUB();
@@ -80,7 +78,7 @@ public class GenerateEPUB {
 			epub.add(pub);
 
 			// add one chapter
-			pub.addItem(HTML_FILE);
+			pub.addItem(Paths.get("loremipsum.html").toFile());
 
 			// create the EPUB
 			epub.pack(new File("loremipsum.epub"));

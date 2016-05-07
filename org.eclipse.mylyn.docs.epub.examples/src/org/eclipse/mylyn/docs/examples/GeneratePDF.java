@@ -10,16 +10,14 @@
  *******************************************************************************/
 package org.eclipse.mylyn.docs.examples;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.StringWriter;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.util.regex.Matcher;
@@ -54,8 +52,6 @@ import org.w3c.dom.Document;
 
 public class GeneratePDF {
 	
-	private static final File XSLFO_FILE = new File("loremipsum.fo");
-	
 	private static final Pattern INLINE_EQUATION = Pattern.compile("\\$\\$?[^$]*\\$\\$?");
 
 	public static void main(String[] args) {			
@@ -64,16 +60,17 @@ public class GeneratePDF {
 				FileReader fr = new FileReader("loremipsum.md");
 				// output XSL:FO
 				FileWriter fw = new FileWriter("loremipsum.fo");
-				// and finally PDF
-				OutputStream out = new BufferedOutputStream(new FileOutputStream(new File("loremipsum.pdf")))) {
+				// and finally write PDF
+				OutputStream out = Files.newOutputStream(Paths.get("loremipsum.pdf"), StandardOpenOption.CREATE)) {
 			
-			// generate XSL:FO file from the MarkDown
+			
+			// configure a MarkDown parser and an XSL:FO document builder
 			MarkupParser parser = new MarkupParser();
 			parser.setMarkupLanguage(new MarkdownLanguage());
 			XslfoDocumentBuilder builder = new XslfoDocumentBuilder(fw);
 
+			// add a cover page
 			Configuration c = new Configuration();
-			// create a cover page
 			c.setTitle("Lorem impsum");
 			c.setVersion("Version 1.0");
 			c.setAuthor("Nomen Nescio");
@@ -82,27 +79,27 @@ public class GeneratePDF {
 			c.setCopyright("Copyright 2015-2016, Nomen Nescio");
 			builder.setConfiguration(c);
 
-			// the input file must be parsed to get create a table of contents
+			// the MarkDown file must be parsed to get create a table of contents
 			OutlineItem op = new OutlineParser(new MarkdownLanguage())
-					.parse(Utilities.readFile(new File("loremipsum.md"), Charset.forName("utf-8")));
+					.parse(new String(Files.readAllBytes(Paths.get("loremipsum.md"))));
 			builder.setOutline(op);
-
+			
 			// build the XSL:FO file
 			parser.setBuilder(builder);
 			parser.parse(fr, true);
 
-			// convert any inline equations in the HTML into SVG
-			String html = Utilities.readFile(XSLFO_FILE, Charset.forName("UTF-8"));
+			// read the generated XSL:FO and look for inline equations
+			String html = new String(Files.readAllBytes(Paths.get("loremipsum.fo"))); 
 			StringBuffer sb = new StringBuffer();
 			Matcher m = INLINE_EQUATION.matcher(html);
 
 			// for each equation
 			while (m.find()) {
-				// replace the LaTeX code with MathML
+				// replace the LaTeX code with SVG
 				m.appendReplacement(sb, laTeX2Svg(m.group()));
 			}
 			m.appendTail(sb);
-			Files.write(XSLFO_FILE.toPath(), sb.toString().getBytes(), StandardOpenOption.WRITE);
+			Files.write(Paths.get("loremipsum.fo"), sb.toString().getBytes(), StandardOpenOption.WRITE);
 
 			// create a new Fop using the given configuration
 			FopFactory fopFactory = FopFactory.newInstance(new File("fop.xconf"));
