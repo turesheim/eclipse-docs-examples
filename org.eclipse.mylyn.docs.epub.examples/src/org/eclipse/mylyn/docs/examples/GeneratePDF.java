@@ -56,6 +56,12 @@ public class GeneratePDF {
 
 	public static void main(String[] args) {			
 
+		// clean up from last run
+		try {
+			Files.delete(Paths.get("loremipsum.fo"));
+			Files.delete(Paths.get("loremipsum.pdf"));
+		} catch (IOException e1) { /* no worries */ }
+
 		try (	// read MarkDown
 				FileReader fr = new FileReader("loremipsum.md");
 				// output XSL:FO

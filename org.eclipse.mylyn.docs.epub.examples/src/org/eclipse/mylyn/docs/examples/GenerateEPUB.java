@@ -22,6 +22,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.eclipse.mylyn.docs.epub.core.EPUB;
+import org.eclipse.mylyn.docs.epub.core.ILogger;
 import org.eclipse.mylyn.docs.epub.core.Publication;
 import org.eclipse.mylyn.wikitext.core.parser.MarkupParser;
 import org.eclipse.mylyn.wikitext.core.parser.builder.HtmlDocumentBuilder;
@@ -38,7 +39,28 @@ public class GenerateEPUB {
 	// matches '$$ ... $$' and '$ ... $'
 	private static final Pattern EQUATION = Pattern.compile("\\$\\$?[^$]*\\$\\$?");
 	
-	public static void main(String[] args) {			
+	// a logger is not required, but it helps
+	static EPUB epub = new EPUB(new ILogger() {
+
+		@Override
+		public void log(String message) {
+			System.out.println(message);
+		}
+
+		@Override
+		public void log(String message, Severity severity) {
+			System.out.println(message);
+		}
+
+	});
+
+	public static void main(String[] args) {
+		
+		// clean up from last run
+		try {
+			Files.delete(Paths.get("loremipsum.html"));
+			Files.delete(Paths.get("loremipsum.epub"));
+		} catch (IOException e1) { /* no worries */ }
 
 		try (	// read MarkDown
 				FileReader fr = new FileReader("loremipsum.md");
@@ -65,8 +87,7 @@ public class GenerateEPUB {
 			m.appendTail(sb);
 			Files.write(Paths.get("loremipsum.html"), sb.toString().getBytes(), StandardOpenOption.WRITE);
 
-			// instantiate a new EPUB
-			EPUB epub = new EPUB();
+			// instantiate a new EPUB version 2 publication
 			Publication pub = Publication.getVersion2Instance();
 
 			// include referenced resources is default false
