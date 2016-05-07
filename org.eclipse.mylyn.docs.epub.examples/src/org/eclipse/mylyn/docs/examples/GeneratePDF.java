@@ -52,7 +52,7 @@ import org.w3c.dom.Document;
 
 public class GeneratePDF {
 	
-	private static final Pattern INLINE_EQUATION = Pattern.compile("\\$\\$?[^$]*\\$\\$?");
+	private static final Pattern EQUATION = Pattern.compile("\\$\\$?[^$]*\\$\\$?");
 
 	public static void main(String[] args) {			
 
@@ -91,7 +91,7 @@ public class GeneratePDF {
 			// read the generated XSL:FO and look for inline equations
 			String html = new String(Files.readAllBytes(Paths.get("loremipsum.fo"))); 
 			StringBuffer sb = new StringBuffer();
-			Matcher m = INLINE_EQUATION.matcher(html);
+			Matcher m = EQUATION.matcher(html);
 
 			// for each equation
 			while (m.find()) {

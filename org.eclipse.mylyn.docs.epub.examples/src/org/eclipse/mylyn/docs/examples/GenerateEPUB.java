@@ -35,7 +35,8 @@ import uk.ac.ed.ph.snuggletex.XMLStringOutputOptions;
 
 public class GenerateEPUB {
 		
-	private static final Pattern INLINE_EQUATION = Pattern.compile("\\$\\$?[^$]*\\$\\$?");
+	// matches '$$ ... $$' and '$ ... $'
+	private static final Pattern EQUATION = Pattern.compile("\\$\\$?[^$]*\\$\\$?");
 	
 	public static void main(String[] args) {			
 
@@ -54,7 +55,7 @@ public class GenerateEPUB {
 			// convert any inline equations in the HTML into MathML
 			String html  = new String(Files.readAllBytes(Paths.get("loremipsum.html")));
 			StringBuffer sb = new StringBuffer();
-			Matcher m = INLINE_EQUATION.matcher(html);
+			Matcher m = EQUATION.matcher(html);
 
 			// for each equation
 			while (m.find()) {
