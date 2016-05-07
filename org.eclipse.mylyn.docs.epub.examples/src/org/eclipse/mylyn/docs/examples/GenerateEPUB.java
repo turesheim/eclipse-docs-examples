@@ -37,7 +37,8 @@ public class GenerateEPUB {
 	
 	private static final File HTML_FILE = new File("loremipsum.html");
 	
-	private static final Pattern INLINE_EQUATION = Pattern.compile("\\$\\$?[^$]*\\$\\$?");
+	// matches '$$ ... $$' and '$ ... $'
+	private static final Pattern EQUATION = Pattern.compile("\\$\\$?[^$]*\\$\\$?");
 	
 	public static void main(String[] args) {			
 
@@ -56,7 +57,7 @@ public class GenerateEPUB {
 			// convert any inline equations in the HTML into MathML
 			String html = Utilities.readFile(HTML_FILE, Charset.forName("UTF-8"));
 			StringBuffer sb = new StringBuffer();
-			Matcher m = INLINE_EQUATION.matcher(html);
+			Matcher m = EQUATION.matcher(html);
 
 			// for each equation
 			while (m.find()) {

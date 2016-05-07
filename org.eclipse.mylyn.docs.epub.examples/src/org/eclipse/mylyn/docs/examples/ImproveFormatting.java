@@ -70,7 +70,7 @@ public class ImproveFormatting {
 			// then copy in the modified CSS
 			EPUBFileUtil.copy(new File("assets/epub.css"), cssFile);
 
-			// fix all the code listings
+			// find all the chapters, we know they start with "ch" 
 			File oebps = new File(workFolder, "OEBPS");
 			String[] list = oebps.list(new FilenameFilter() {
 
@@ -79,6 +79,8 @@ public class ImproveFormatting {
 					return name.startsWith("ch") && name.endsWith(".html");
 				}
 			});
+			
+			// and fix the code formatting
 			for (String string : list) {
 				File in = new File(oebps, string);
 				improveCodeFormatting(in);
@@ -109,9 +111,11 @@ public class ImproveFormatting {
 		// obtain all the code sections we want to format
 		Elements select = parse.select("pre[class=programlisting]");
 		for (Element element : select) {
+			// get to the actual code
 			String text = element.html();
 		
-			// try to avoid xml and other code already formatted, just to make it easier
+			// try to avoid xml and other code already formatted - we're not
+			// able to handle that in this example
 			if (!text.contains("<plugin>") && !text.contains("<span")) {
 				String code = KEYWORDS
 						.stream()
@@ -119,6 +123,7 @@ public class ImproveFormatting {
 						(str, keyword) -> str.replaceAll(
 								keyword+"(\\s|\\(|\\{|\\))", 
 								"<code class=\"keyword\">" + keyword + "</code>$1"));
+				// replace the code with the coloured version
 				element.html(code);
 			}
 		}

@@ -56,7 +56,7 @@ public class GeneratePDF {
 	
 	private static final File XSLFO_FILE = new File("loremipsum.fo");
 	
-	private static final Pattern INLINE_EQUATION = Pattern.compile("\\$\\$?[^$]*\\$\\$?");
+	private static final Pattern EQUATION = Pattern.compile("\\$\\$?[^$]*\\$\\$?");
 
 	public static void main(String[] args) {			
 
@@ -94,7 +94,7 @@ public class GeneratePDF {
 			// convert any inline equations in the HTML into SVG
 			String html = Utilities.readFile(XSLFO_FILE, Charset.forName("UTF-8"));
 			StringBuffer sb = new StringBuffer();
-			Matcher m = INLINE_EQUATION.matcher(html);
+			Matcher m = EQUATION.matcher(html);
 
 			// for each equation
 			while (m.find()) {
