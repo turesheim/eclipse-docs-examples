@@ -6,7 +6,7 @@ Lorem markdownum sensitque genitor terram. Per gaudia **fingens iam faciunt**
 Phoebes illis innitens instantes dolet quandoquidem terra. Lege in mittit
 ponderibus, nec tamen animi manibusque sed.
 
-![](screenshot.png)
+![](../presentation/images/why-wiki.jpg)
 
 ## The quadratic formula
 
