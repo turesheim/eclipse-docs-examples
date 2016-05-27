@@ -85,17 +85,18 @@ public class GenerateEPUB {
 				m.appendReplacement(sb, laTeX2MathMl(m.group()));
 			}
 			m.appendTail(sb);
+			// write back the modified HTML-file
 			Files.write(Paths.get("loremipsum.html"), sb.toString().getBytes(), StandardOpenOption.WRITE);
 
 			// instantiate a new EPUB version 2 publication
 			Publication pub = Publication.getVersion2Instance();
 
-			// include referenced resources is default false
+			// include referenced resources (default is false)
 			pub.setIncludeReferencedResources(true);
 			pub.addTitle("EclipseCon Demo");
 			pub.addSubject("EclipseCon Demo");
 
-			// generate table of contents is default true
+			// generate table of contents (default is true)
 			pub.setGenerateToc(true);
 			epub.add(pub);
 

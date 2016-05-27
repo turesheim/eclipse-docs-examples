@@ -15,9 +15,11 @@ import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.eclipse.mylyn.docs.epub.core.EPUB;
 import org.eclipse.mylyn.docs.epub.core.ILogger;
 import org.eclipse.mylyn.docs.epub.core.Publication;
@@ -57,9 +59,15 @@ public class ImproveFormatting {
 		try {
 			// assign a working folder
 			File workFolder = new File("work");
+			
+			// clean up from last run
+			try {
+				FileUtils.deleteQuietly(workFolder);
+				Files.delete(Paths.get("new.epub"));
+			} catch (IOException e1) { /* no worries */ }
 
 			// first unpack the EPUB file we have
-			epub.unpack(new File("Mastering_Eclipse_Plug_in_Development.epub"), workFolder);
+			epub.unpack(new File("Mastering Eclipse Plug-in Development.epub"), workFolder);
 			
 			// make note of the CSS file
 			File cssFile = new File(workFolder, "OEBPS/epub.css");
@@ -78,6 +86,7 @@ public class ImproveFormatting {
 				public boolean accept(File dir, String name) {
 					return name.startsWith("ch") && name.endsWith(".html");
 				}
+				
 			});
 			
 			// and fix the code formatting
