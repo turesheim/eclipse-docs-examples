@@ -18,6 +18,10 @@ Loaded from an equation file:
 
 $$quadratic-formula.eqn$$
 
+## A simple diagram
+
+![](assets/chart.svg)
+
 ## Simillima absumpsit novum florent
 
 Ante omne causa sacerdos saltus, dixit duri sed sicut quoque relictus, pia sed.

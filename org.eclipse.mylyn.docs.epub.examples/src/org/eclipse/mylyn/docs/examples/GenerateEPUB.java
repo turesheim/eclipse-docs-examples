@@ -27,6 +27,11 @@ import org.eclipse.mylyn.docs.epub.core.Publication;
 import org.eclipse.mylyn.wikitext.core.parser.MarkupParser;
 import org.eclipse.mylyn.wikitext.core.parser.builder.HtmlDocumentBuilder;
 import org.eclipse.mylyn.wikitext.markdown.core.MarkdownLanguage;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.parser.Parser;
+import org.jsoup.select.Elements;
 
 import uk.ac.ed.ph.snuggletex.SerializationMethod;
 import uk.ac.ed.ph.snuggletex.SnuggleEngine;
@@ -85,6 +90,21 @@ public class GenerateEPUB {
 				m.appendReplacement(sb, laTeX2MathMl(m.group()));
 			}
 			m.appendTail(sb);
+			
+			// EPUB 2.0 can only use embedded SVG so we find all referenced
+			// SVG files and replace the reference with the actual code
+			Document parse = Jsoup.parse(sb.toString(), "UTF-8", Parser.xmlParser());
+
+			Elements select = parse.select("img");
+			for (Element element : select) {
+				String attr = element.attr("src");
+				if (attr.endsWith(".svg")){
+					byte[] svg = Files.readAllBytes(Paths.get(attr));
+					element.html(new String(svg));					
+				}
+			}
+			
+			
 			// write back the modified HTML-file
 			Files.write(Paths.get("loremipsum.html"), sb.toString().getBytes(), StandardOpenOption.WRITE);
 
