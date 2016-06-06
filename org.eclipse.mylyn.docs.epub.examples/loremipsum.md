@@ -18,7 +18,7 @@ Loaded from an equation file:
 
 $$quadratic-formula.eqn$$
 
-## A simple diagram
+## A simple SVG diagram
 
 ![](assets/chart.svg)
 

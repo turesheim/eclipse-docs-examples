@@ -91,8 +91,8 @@ public class GenerateEPUB {
 			}
 			m.appendTail(sb);
 			
-			// EPUB 2.0 can only use embedded SVG so we find all referenced
-			// SVG files and replace the reference with the actual code
+			// EPUB 2.0 can only handle embedded SVG so we find all referenced
+			// SVG files and replace the reference with the actual SVG code
 			Document parse = Jsoup.parse(sb.toString(), "UTF-8", Parser.xmlParser());
 
 			Elements select = parse.select("img");
@@ -113,6 +113,8 @@ public class GenerateEPUB {
 
 			// include referenced resources (default is false)
 			pub.setIncludeReferencedResources(true);
+			
+			// title and subject is required
 			pub.addTitle("EclipseCon Demo");
 			pub.addSubject("EclipseCon Demo");
 
@@ -152,11 +154,13 @@ public class GenerateEPUB {
 		// convert html entities to utf-8
 		String utf8latex = StringEscapeUtils.unescapeHtml(latex);
 
+		// parse the LaTeX expression
 		SnuggleEngine engine = new SnuggleEngine();
 		SnuggleSession session = engine.createSession();
 		SnuggleInput input = new SnuggleInput(utf8latex);
 		session.parseInput(input);
 
+		// and output MathML
 		XMLStringOutputOptions options = new XMLStringOutputOptions();
 		options.setSerializationMethod(SerializationMethod.XML);
 		options.setIndenting(true);

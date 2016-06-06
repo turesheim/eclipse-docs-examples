@@ -81,6 +81,7 @@ public class GeneratePDF {
 			c.setVersion("Version 1.0");
 			c.setAuthor("Nomen Nescio");
 			c.setDate(LocalDate.now().toString());
+
 			// and a footer
 			c.setCopyright("Copyright 2015-2016, Nomen Nescio");
 			builder.setConfiguration(c);
@@ -105,6 +106,8 @@ public class GeneratePDF {
 				m.appendReplacement(sb, laTeX2Svg(m.group()));
 			}
 			m.appendTail(sb);
+			
+			// write the modified file back to the file system
 			Files.write(Paths.get("loremipsum.fo"), sb.toString().getBytes(), StandardOpenOption.WRITE);
 
 			// create a new Fop using the given configuration
@@ -138,6 +141,7 @@ public class GeneratePDF {
 			}
 		}
 
+		// add support for typical fonts
 		DefaultTeXFont.registerAlphabet(new CyrillicRegistration());
 		DefaultTeXFont.registerAlphabet(new GreekRegistration());
 

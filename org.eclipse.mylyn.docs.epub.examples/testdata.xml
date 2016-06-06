@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="ExampleTest" project="org.eclipse.mylyn.docs.examples" tests="4" started="4" failures="0" errors="0" ignored="0">
+  <testsuite name="org.eclipse.mylyn.docs.examples.ExampleTest" time="10.0">
+    <testcase name="firstTest" classname="org.eclipse.mylyn.docs.examples.ExampleTest" time="1.0"/>
+    <testcase name="secondTest" classname="org.eclipse.mylyn.docs.examples.ExampleTest" time="2.0"/>
+    <testcase name="thirdTest" classname="org.eclipse.mylyn.docs.examples.ExampleTest" time="3.0"/>
+    <testcase name="fourthTest" classname="org.eclipse.mylyn.docs.examples.ExampleTest" time="4.0"/>
+  </testsuite>
+</testrun>
