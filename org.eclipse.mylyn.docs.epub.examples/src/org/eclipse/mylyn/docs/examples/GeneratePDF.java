@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2015, 2016 Torkild U. Resheim
+ * Copyright (c) 2015, 2016, 2017 Torkild U. Resheim
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -35,12 +35,12 @@ import org.apache.batik.svggen.SVGGeneratorContext;
 import org.apache.batik.svggen.SVGGraphics2D;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
-import org.eclipse.mylyn.wikitext.core.parser.MarkupParser;
-import org.eclipse.mylyn.wikitext.core.parser.builder.XslfoDocumentBuilder;
-import org.eclipse.mylyn.wikitext.core.parser.builder.XslfoDocumentBuilder.Configuration;
-import org.eclipse.mylyn.wikitext.core.parser.outline.OutlineItem;
-import org.eclipse.mylyn.wikitext.core.parser.outline.OutlineParser;
-import org.eclipse.mylyn.wikitext.markdown.core.MarkdownLanguage;
+import org.eclipse.mylyn.wikitext.parser.MarkupParser;
+import org.eclipse.mylyn.wikitext.parser.builder.XslfoDocumentBuilder;
+import org.eclipse.mylyn.wikitext.parser.builder.XslfoDocumentBuilder.Configuration;
+import org.eclipse.mylyn.wikitext.parser.outline.OutlineItem;
+import org.eclipse.mylyn.wikitext.parser.outline.OutlineParser;
+import org.eclipse.mylyn.wikitext.markdown.MarkdownLanguage;
 import org.scilab.forge.jlatexmath.DefaultTeXFont;
 import org.scilab.forge.jlatexmath.TeXConstants;
 import org.scilab.forge.jlatexmath.TeXFormula;

@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry exported="true" kind="lib" path="lib/commons-io-2.5.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/xml-apis-ext.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/jlatexmath-1.0.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/avalon-framework-4.2.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/batik-all-1.8.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/fop.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/snuggletex-core-1.2.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/xmlgraphics-commons-2.0.1.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry exported="true" kind="lib" path="lib/org.apache.tika.core_1.3.0.v201304160510.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/org.apache.tika.parsers_1.3.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.emf.ecore_2.7.0.v20120127-1122.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.emf.ecore.xmi_2.7.0.v20120127-1122.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.emf.common_2.7.0.v20120127-1122.jar"/>
-	<classpathentry kind="lib" path="lib/org.eclipse.mylyn.docs.epub.core_3.1.0.N20151024-2111.jar" sourcepath="lib/org.eclipse.mylyn.docs.epub.core.source_3.1.0.N20151024-2111.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/org.eclipse.mylyn.docs.epub.core.source_3.1.0.N20151024-2111.jar"/>
-	<classpathentry kind="lib" path="lib/jsoup-1.8.3.jar" sourcepath="lib/jsoup-1.8.3-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/jsoup-1.8.3-sources.jar"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="src" output="target/classes" path="src">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>

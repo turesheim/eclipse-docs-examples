@@ -6,3 +6,4 @@
 *.fo
 *.pdf
 *.png
+/target/

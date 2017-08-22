@@ -23,7 +23,7 @@ import org.apache.commons.io.FileUtils;
 import org.eclipse.mylyn.docs.epub.core.EPUB;
 import org.eclipse.mylyn.docs.epub.core.ILogger;
 import org.eclipse.mylyn.docs.epub.core.Publication;
-import org.eclipse.mylyn.internal.docs.epub.core.EPUBFileUtil;
+import org.eclipse.mylyn.docs.epub.internal.EPUBFileUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -47,7 +47,7 @@ public class ImproveFormatting {
 
 	});
 
-	/** A list of all Java keywords we want coloured */
+	/** A list of all Java keywords we want colored */
 	static List<String> KEYWORDS = Arrays.asList("abstract", "continue", "for", "new", "switch", "assert", "default",
 			"goto", "package", "synchronized", "boolean", "do", "if", "private", "this", "break", "double",
 			"implements", "protected", "throw", "byte", "else", "import", "public", "throws", "case", "enum",
@@ -133,7 +133,7 @@ public class ImproveFormatting {
 						(str, keyword) -> str.replaceAll(
 								keyword+"(\\s|\\(|\\{|\\))", 
 								"<code class=\"keyword\">" + keyword + "</code>$1"));
-				// replace the code with the coloured version
+				// replace the code with the colored version
 				element.html(code);
 			}
 		}
