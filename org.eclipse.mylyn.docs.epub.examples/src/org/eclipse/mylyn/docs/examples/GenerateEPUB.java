@@ -67,7 +67,7 @@ public class GenerateEPUB {
 			Files.delete(Paths.get("loremipsum.epub"));
 		} catch (IOException e1) { /* no worries */ }
 
-		try (	// read MarkDown
+		try (	// read Markdown
 				FileReader fr = new FileReader("loremipsum.md");
 				// and output HTML
 				Writer fw = Files.newBufferedWriter(Paths.get("loremipsum.html"), StandardOpenOption.CREATE)){
