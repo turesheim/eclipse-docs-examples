@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2015, 2016, 2017 Torkild U. Resheim
+ * Copyright © 2015-2017 Torkild U. Resheim
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -50,8 +50,17 @@ import org.scilab.forge.jlatexmath.greek.GreekRegistration;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 
-public class GeneratePDF {
-	
+/**
+ * This code demonstrates how a Markdown document can be converted to PDF by
+ * means of first converting it to XSL:FO using Mylyn Docs, then to PDF using
+ * Apache FOP. In addition the Markdown contains inline LaTeX equations which
+ * are converted to SVG (in the XSL:FO) using JLaTeXMath.
+ * 
+ * @author Torkild Ulvøy Resheim, Itema AS
+ */
+public class Markdown2PDF {
+
+	// matches '$$ ... $$' and '$ ... $'
 	private static final Pattern EQUATION = Pattern.compile("\\$\\$?[^$]*\\$\\$?");
 
 	public static void main(String[] args) {			

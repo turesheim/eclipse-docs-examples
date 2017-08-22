@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2015, 2016 Torkild U. Resheim
+ * Copyright © 2015-2017 Torkild U. Resheim
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -30,7 +30,17 @@ import org.jsoup.nodes.Element;
 import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
 
-public class ImproveFormatting {
+/**
+ * This code demonstrates how the Eclipse EPUB API can be used to improve the
+ * formatting of a published book. When executed it will examine all the code
+ * blocks in the book and apply basic keyword coloring in addition to changing
+ * the font to a more readable monospace type.
+ * 
+ * The book used is https://www.packtpub.com/application-development/advanced-eclipse-plug-development-raw
+ * 
+ * @author Torkild Ulvøy Resheim, Itema AS
+ */
+public class ImproveEPUBFormatting {
 	
 	// a logger is not required, but it helps
 	static EPUB epub = new EPUB(new ILogger() {

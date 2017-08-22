@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2015, 2016, 2017 Torkild U. Resheim
+ * Copyright © 2015-2017 Torkild U. Resheim
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -39,7 +39,15 @@ import uk.ac.ed.ph.snuggletex.SnuggleInput;
 import uk.ac.ed.ph.snuggletex.SnuggleSession;
 import uk.ac.ed.ph.snuggletex.XMLStringOutputOptions;
 
-public class GenerateEPUB {
+/**
+ * This code demonstrates how a Markdown document can be converted to EPUB by
+ * means of first converting it to HTML using Mylyn Docs, then to EPUB using
+ * the Eclipse EPUB API. In addition the Markdown contains inline LaTeX 
+ * equations which are converted to MathML using SnuggleTeX.
+ * 
+ * @author Torkild Ulvøy Resheim, Itema AS
+ */
+public class Markdown2EPUB {
 		
 	// matches '$$ ... $$' and '$ ... $'
 	private static final Pattern EQUATION = Pattern.compile("\\$\\$?[^$]*\\$\\$?");
