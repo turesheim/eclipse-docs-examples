@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Examples
-Bundle-SymbolicName: org.eclipse.mylyn.docs.examples
+Bundle-SymbolicName: mylyn.docs
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: lib/avalon-framework-4.2.0.jar,
  lib/batik-all-1.8.jar,

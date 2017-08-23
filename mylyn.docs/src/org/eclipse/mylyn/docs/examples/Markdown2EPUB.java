@@ -123,8 +123,8 @@ public class Markdown2EPUB {
 			pub.setIncludeReferencedResources(true);
 			
 			// title and subject is required
-			pub.addTitle("EclipseCon Demo");
-			pub.addSubject("EclipseCon Demo");
+			pub.addTitle("Trondheim Eclipse DemoCamp");
+			pub.addSubject("Trondheim Eclipse DemoCamp");
 
 			// generate table of contents (default is true)
 			pub.setGenerateToc(true);
