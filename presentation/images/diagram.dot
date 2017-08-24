@@ -1,21 +1,22 @@
 digraph G {
 	
-	graph [fontname = "helvetica", bgcolor=transparent];
+	graph [ranksep=1, fontname = "helvetica", bgcolor=transparent];
  	node [fontname = "helvetica", style=filled, fillcolor=antiquewhite2];
  	edge [fontname = "helvetica", color=white, fontcolor=aquamarine];
  	
 	Markdown [shape=box, fillcolor=aliceblue];
 	Equations [shape=box, fillcolor=aliceblue];
 	LaTeX [shape=box, fillcolor=aliceblue];
+	AsciiDoc [shape=box, fillcolor=aliceblue];
 	
 	EPUB [shape=box, style=filled, fillcolor=lightskyblue];
 	PDF [shape=box, style=filled, fillcolor=lightskyblue;]
 	
 	LaTeX -> PDF [label="pdflatex"];
 	AsciiDoc -> HTML [label="AsciiDoctor"];
+	AsciiDoc -> PDF [label="AsciiDoctor"];
 	Markdown -> HTML [label="Eclipse Wikitext"];
 	Markdown -> "XSL:FO" [label="Eclipse Wikitext"];
-	"XSL:FO" -> PDF [label="Apache FOP"];
 	HTML -> EPUB [label="Eclipse EPUB"];
 	Equations -> SVG [label="jlatexmath"]
 	Equations -> MathML [label="snuggletex"];
@@ -24,4 +25,5 @@ digraph G {
 	SVG -> "XSL:FO" [style=dashed]
 	MathML -> EPUB [style=dashed]
 	MathML -> HTML [style=dashed]
+	"XSL:FO" -> PDF [label="Apache FOP"];
 }
