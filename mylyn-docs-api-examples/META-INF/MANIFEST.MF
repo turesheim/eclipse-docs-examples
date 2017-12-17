@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: Examples
-Bundle-SymbolicName: mylyn.docs
-Bundle-Version: 1.0.0.qualifier
-Bundle-ClassPath: lib/snuggletex-core-1.2.2.jar
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
