@@ -57,7 +57,7 @@ Java has a **huge** selection of open source API's and tools:
 ---
 # Conversion tools
 
-![inline fit original](images/diagram.png)
+![fit original](images/diagram.png)
 
 ^ **Light blue** are source formats.
 

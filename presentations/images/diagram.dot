@@ -2,7 +2,7 @@ digraph G {
 	
 	graph [ranksep=1, fontname = "helvetica", bgcolor=transparent];
  	node [fontname = "helvetica", style=filled, fillcolor=antiquewhite2];
- 	edge [fontname = "helvetica", color=white, fontcolor=aquamarine];
+ 	edge [fontname = "helvetica", fontcolor=aquamarine];
  	
 	Markdown [shape=box, fillcolor=aliceblue];
 	Equations [shape=box, fillcolor=aliceblue];
