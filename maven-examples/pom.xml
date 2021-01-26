@@ -10,7 +10,7 @@
 		<mylyn-wikitext.version>3.0.13</mylyn-wikitext.version>
 		<eclipse.epub.version>4.0.6</eclipse.epub.version>
 		<eclipse.emf.version>2.12.0</eclipse.emf.version>
-		<apache.tika.version>1.16</apache.tika.version>
+		<apache.tika.version>1.25</apache.tika.version>
 		<asciidoctor.maven.plugin.version>1.5.6</asciidoctor.maven.plugin.version>
 		<asciidoctorj.version>1.5.6</asciidoctorj.version>
 		<asciidoctorj.diagram.version>1.5.4.1</asciidoctorj.diagram.version>
